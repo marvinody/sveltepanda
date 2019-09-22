@@ -19,6 +19,3 @@ polka() // You can also use Express
 		if (err) console.log('error', err);
 	});
 
-
-console.log(process.env.test)
-console.log(process.env.TEST)
