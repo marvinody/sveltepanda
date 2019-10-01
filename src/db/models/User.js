@@ -3,10 +3,17 @@ import Sequelize from 'sequelize'
 import db from '../db'
 
 const User = db.define('user', {
-  email: {
+  username: {
     type: Sequelize.STRING,
     unique: true,
-    allowNull: false
+    allowNull: false,
+  },
+  email: {
+    type: Sequelize.STRING,
+    allowNull: true,
+    validate: {
+      isEmail: true,
+    }
   },
   password: {
     type: Sequelize.STRING,
@@ -23,9 +30,6 @@ const User = db.define('user', {
     get() {
       return () => this.getDataValue('salt')
     }
-  },
-  googleId: {
-    type: Sequelize.STRING
   }
 })
 export default User
