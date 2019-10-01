@@ -1,7 +1,7 @@
 import * as sapper from '@sapper/server';
 import bodyParser from 'body-parser';
 import compression from 'compression';
-import polka from 'polka';
+import express from 'express';
 import sirv from 'sirv';
 import db from './db';
 
@@ -11,25 +11,16 @@ if (dev) {
 	require('../secrets')
 }
 
-const addJsonMethod = (req, res, next) => {
-	res.json = (obj) => {
-		res.setHeader('Content-Type', 'application/json');
-		res.end(JSON.stringify(obj));
-	}
-	next();
-}
-
-polka() // You can also use Express
+express() // You can also use Express
 	.use(
 		bodyParser.json(),
 		compression({ threshold: 0 }),
 		sirv('static', { dev }),
-		addJsonMethod,
 		sapper.middleware(),
 
 	)
 	.listen(PORT, async err => {
-		db.sync({ force: true })
 		if (err) console.log('error', err);
+		db.sync()
 	});
 
