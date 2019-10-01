@@ -1,4 +1,5 @@
 import * as sapper from '@sapper/server';
+import bodyParser from 'body-parser';
 import compression from 'compression';
 import polka from 'polka';
 import sirv from 'sirv';
@@ -20,6 +21,7 @@ const addJsonMethod = (req, res, next) => {
 
 polka() // You can also use Express
 	.use(
+		bodyParser.json(),
 		compression({ threshold: 0 }),
 		sirv('static', { dev }),
 		addJsonMethod,
