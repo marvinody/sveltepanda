@@ -5,8 +5,9 @@ import express from 'express';
 import sirv from 'sirv';
 import db from './db';
 
-const { PORT, NODE_ENV } = process.env;
+const { PORT, NODE_ENV, SEED } = process.env;
 const dev = NODE_ENV === 'development';
+const force = SEED !== undefined
 if (dev) {
 	require('../secrets')
 }
@@ -21,6 +22,6 @@ express() // You can also use Express
 	)
 	.listen(PORT, async err => {
 		if (err) console.log('error', err);
-		db.sync()
+		db.sync({ force })
 	});
 
