@@ -1,6 +1,6 @@
 <script>
   import axios from "axios";
-  import { stores } from "@sapper/app";
+  import { stores, goto } from "@sapper/app";
   const { session } = stores();
   let username = "";
   let password = "";
@@ -11,7 +11,12 @@
         username,
         password
       });
+      // need to set the local session because it's stupid I guess?
+      // will cause the navbar and anything else watching session update
       session.set({ user: user.id });
+      // finally, bounce back to the homepage
+      // maybe change to previous url at some point
+      goto("/");
     } catch (err) {
       console.error(err);
     }
