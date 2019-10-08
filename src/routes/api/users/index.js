@@ -8,6 +8,7 @@ export async function get(req, res) {
 export async function post(req, res) {
   try {
     const user = await User.create(req.body)
+    req.session.user = user.id;
     res.json(user)
   } catch (err) {
     console.error(err)
