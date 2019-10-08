@@ -4,14 +4,12 @@
   const { session } = stores();
   let username = "";
   let password = "";
-  let email = "";
 
   const submit = async () => {
     try {
-      const { data: user } = await axios.post("/api/users", {
+      const { data: user } = await axios.post("/api/users/login", {
         username,
-        password,
-        email
+        password
       });
       session.set({ user: user.id });
     } catch (err) {
@@ -21,7 +19,7 @@
 </script>
 
 <style>
-  div.register {
+  div.login {
     margin: 200px auto auto auto;
     width: 400px;
     text-align: center;
@@ -51,11 +49,11 @@
 </style>
 
 <svelte:head>
-  <title>Register</title>
+  <title>Login</title>
 </svelte:head>
 
-<div class="register">
-  <p>Please enter your info to register.</p>
+<div class="login">
+  <p>Please enter your info to login.</p>
   <form method="POST">
     <div>
       <div class="row">
@@ -88,26 +86,11 @@
             bind:value={password} />
         </div>
       </div>
-      <div class="row">
-        <div class="text-tag">
-          <div />
-          <div class="halfer">
-            <span>Email:</span>
-          </div>
-        </div>
-        <div class="text-input">
-          <input
-            class="stdinput"
-            type="email"
-            name="email"
-            bind:value={email} />
-        </div>
-      </div>
       <div>
         <input
           class="stdbtn"
           type="submit"
-          value="Register!"
+          value="Login!"
           on:click|preventDefault={submit} />
       </div>
     </div>
