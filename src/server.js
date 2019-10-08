@@ -18,23 +18,38 @@ if (dev) {
 	require('../secrets')
 }
 
-express() // You can also use Express
-	.use(
-		morgan('dev'),
-		bodyParser.json(),
-		compression({ threshold: 0 }),
-		session({
-			secret: process.env.SESSION_SECRET || 'VERY NICE. I LIKE YOU. HI-5',
-			store: sessionStore,
-			resave: false,
-			saveUninitialized: false
-		}),
-		sirv('static', { dev }),
-		sapper.middleware(),
+const app = express()
+app.use(morgan('dev')) // logger
 
-	)
-	.listen(PORT, async err => {
-		if (err) console.log('error', err);
-		db.sync({ force })
-	});
+// gonna need to add multer later
+app.use(bodyParser.json())
+
+app.use(compression({ threshold: 0 }))
+
+app.use(session({
+	secret: process.env.SESSION_SECRET || 'VERY NICE. I LIKE YOU. HI-5',
+	store: sessionStore,
+	resave: false,
+	saveUninitialized: false
+}))
+
+app.use(sirv('static', { dev }))
+
+// load session for any page component to see
+app.use(sapper.middleware({
+	session: (req, res) => ({
+		user: req.session.user
+	})
+}))
+
+app.use((err, req, res, next) => {
+	console.error(err)
+	console.error(err.stack)
+	res.status(err.status || 500).send(err.message || 'Internal server error.')
+})
+
+app.listen(PORT, async err => {
+	if (err) console.log('error', err);
+	db.sync({ force })
+});
 
