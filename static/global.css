@@ -252,7 +252,7 @@ div.tod {
 }
 
 /* navbar */
-p#nb {
+nav#nb {
   margin: 2px auto 0;
   padding: 3px 0 0;
   text-align: center;
@@ -262,16 +262,22 @@ p#nb {
   white-space: nowrap
 }
 
-p#nb img {
+nav#nb img {
   border: 0;
   margin: -1px -1px 1px 20px;
   width: 5px;
   height: 7px
 }
 
-p#nb a {
+nav#nb a {
   text-decoration: none;
   font-weight: bold
+}
+
+nav#nb a::before {
+  content: ">";
+  margin-left: 10px;
+  margin-right: 2px;
 }
 
 p#lb {
@@ -1390,7 +1396,7 @@ div#eventpane {
     width: 265px
   }
 
-  p#nb {
+  nav#nb {
     max-width: 630px;
     overflow: hidden
   }
