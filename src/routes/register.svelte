@@ -1,6 +1,6 @@
 <script>
   import axios from "axios";
-  import { stores } from "@sapper/app";
+  import { stores, goto } from "@sapper/app";
   const { session } = stores();
   let username = "";
   let password = "";
@@ -14,6 +14,7 @@
         email
       });
       session.set({ user: user.id });
+      goto("/");
     } catch (err) {
       console.error(err);
     }

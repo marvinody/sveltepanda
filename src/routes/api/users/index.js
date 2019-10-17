@@ -5,13 +5,18 @@ export async function get(req, res) {
   res.json(users)
 }
 
-export async function post(req, res) {
+export async function post(req, res, next) {
   try {
-    const user = await User.create(req.body)
+    const user = await User.create({
+      username: req.body.username,
+      password: req.body.password,
+      email: req.body.email || null
+    })
     req.session.user = user.id;
     res.json(user)
   } catch (err) {
-    console.error(err)
-    res.sendStatus(500)
+    console.log("NEXTING")
+    console.log(next)
+    next(err)
   }
 }
