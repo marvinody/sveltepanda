@@ -1,3 +1,8 @@
 export function get(req, res, next) {
-  res.send(`viewing: ${req.params.gid}`)
+  try {
+    const gid = req.params.gid
+    res.json({ gid })
+  } catch (err) {
+    next(err)
+  }
 }
