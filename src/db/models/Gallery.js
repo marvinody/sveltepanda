@@ -10,6 +10,10 @@ const Gallery = db.define('gallery', {
     type: Sequelize.ENUM('misc', 'plush'),
     allowNull: true,
   },
+  state: {
+    defaultValue: 'created',
+    type: Sequelize.ENUM('created', 'publishsed', 'expunged')
+  }
 })
 export default Gallery
 
