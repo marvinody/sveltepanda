@@ -1,4 +1,4 @@
-import { Gallery } from '../../../db'
+import { Gallery } from '../../db'
 export async function get(req, res, next) {
   try {
     const galleries = await Gallery.findAll({

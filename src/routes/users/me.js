@@ -1,4 +1,4 @@
-import { User } from '../../../db/';
+import { User } from '../../db/';
 
 // not sure if I need this but gonna keep it for now
 // can add more stuff later
