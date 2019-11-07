@@ -1,4 +1,4 @@
-import db, { User } from './db'
+import db, { Gallery, User } from './db'
 
 async function seed() {
   try {
@@ -7,7 +7,11 @@ async function seed() {
       username: 'marvinody',
       password: '123'
     })
-    console.log(user)
+
+    const gallery1 = await Gallery.create({
+      title: 'Test Gallery',
+      category: 'misc',
+    })
     console.log("Successfully seeeded database!")
   } catch (err) {
     console.error(err)
